@@ -2,7 +2,7 @@ import { createCanvas, loadImage } from "canvas";
 
 interface MovieDetails {
   experienceName: string;
-  date: string;
+  experienceDate: string;
   numberOfPersons: number;
   customerName: string;
 }
@@ -15,12 +15,12 @@ export async function POST(request: Request) {
     // get the values from the request body
     const {
       experienceName = "Experience",
-      date = "Default Date",
+      experienceDate = "Default Date",
       numberOfPersons = 0,
       customerName = "Default Customer",
     } = Object.fromEntries(body) as unknown as MovieDetails;
 
-    console.log(experienceName, date, numberOfPersons, customerName);
+    console.log(experienceName, experienceDate, numberOfPersons, customerName);
 
     // Generate a unique booking ID
     const bookingId = generateBookingId();
@@ -28,7 +28,7 @@ export async function POST(request: Request) {
     // Create an image of the ticket
     const ticketImage = createTicketImage(
       experienceName,
-      date,
+      experienceDate,
       numberOfPersons,
       customerName,
       bookingId
