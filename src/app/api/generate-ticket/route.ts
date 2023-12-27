@@ -1,4 +1,4 @@
-import { createCanvas } from "canvas";
+import { createCanvas, loadImage } from "canvas";
 
 interface MovieDetails {
   experienceName: string;
@@ -44,7 +44,7 @@ export async function POST(request: Request) {
   } catch (error) {
     // Return a 400 response if the request is invalid
     return new Response("Invalid request", {
-      status: 400,
+      status: 200,
       headers: {
         "Content-Type": "text/plain",
       },
@@ -73,24 +73,34 @@ const createTicketImage = async (
   customerName: string,
   bookingId: string
 ): Promise<Buffer> => {
+  // load default image from url
+  const image = await loadImage("https://passprt-app.vercel.app/mticket.jpeg");
+
   // Create a canvas
-  const canvas = createCanvas(400, 800);
+  const canvas = createCanvas(image.width, image.height);
   const ctx = canvas.getContext("2d");
 
-  // Set the background color
-  ctx.fillStyle = "#ffffff";
-  ctx.fillRect(0, 0, canvas.width, canvas.height);
+  // load image from local file and draw image
+  ctx.drawImage(image, -4, 6);
 
   // Set the text color and font
   ctx.fillStyle = "#000000";
-  ctx.font = "24px 'Your Font Family'";
+  ctx.font = "22px Arial";
 
   // Draw the ticket details
-  ctx.fillText(`Experience: ${experienceName}`, 50, 50);
-  ctx.fillText(`Date: ${date}`, 50, 100);
-  ctx.fillText(`Number of Persons: ${numberOfPersons}`, 50, 150);
-  ctx.fillText(`Customer Name: ${customerName}`, 50, 200);
-  ctx.fillText(`Booking ID: ${bookingId}`, 50, 250);
+  ctx.fillText(`${experienceName}`, 45, 300);
+  ctx.fillText(`${date}`, 45, 410);
+  ctx.fillText(`${customerName}`, 45, 520);
+
+  ctx.textAlign = "right";
+  ctx.fillText(`${numberOfPersons}`, 435, 520);
+
+  ctx.textAlign = "center";
+  ctx.fillText(`${bookingId}`, 244, 780);
+
+  ctx.fillStyle = "#ffffff";
+  ctx.font = "18px Arial";
+  ctx.fillText(`${bookingId}`, 244, 42);
 
   // Generate the image buffer
   const buffer = canvas.toBuffer("image/png");
