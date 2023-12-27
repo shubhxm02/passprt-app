@@ -1,5 +1,4 @@
-import { createCanvas, loadImage, registerFont } from "canvas";
-import { join } from "path";
+import { createCanvas } from "canvas";
 
 interface MovieDetails {
   experienceName: string;
@@ -75,7 +74,7 @@ const createTicketImage = async (
   bookingId: string
 ): Promise<Buffer> => {
   // Create a canvas
-  const canvas = createCanvas(800, 400);
+  const canvas = createCanvas(400, 800);
   const ctx = canvas.getContext("2d");
 
   // Set the background color
