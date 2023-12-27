@@ -127,8 +127,13 @@ export default function Home() {
               </form>
             </CardContent>
             <CardFooter className="w-full flex flex-col space-y-4">
-              <Button type="submit" onClick={handleSubmit} className="w-full">
-                Submit
+              <Button
+                type="submit"
+                onClick={handleSubmit}
+                disabled={loading}
+                className="w-full"
+              >
+                {loading ? "Loading..." : "Submit"}
               </Button>
               <Box className="w-full flex justify-between space-x-4">
                 <Button
