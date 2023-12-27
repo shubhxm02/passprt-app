@@ -4,8 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
-    "vercel-build": "yum install gcc-c++ cairo-devel pango-devel libjpeg-turbo-devel giflib-devel && ./setup.sh && npm run build",
+    "build": "./setup.sh && next build",
+    "vercel-build": "yum install gcc-c++ cairo-devel pango-devel libjpeg-turbo-devel giflib-devel && npm run build",
     "start": "next start",
     "lint": "next lint"
   },
